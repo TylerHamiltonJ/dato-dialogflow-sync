@@ -117,3 +117,6 @@ dist
 
 keys.json
 client_secret.json
+output/
+*.zip
+dialogFlow_key.json

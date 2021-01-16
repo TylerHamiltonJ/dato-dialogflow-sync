@@ -4,8 +4,16 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "import": "rm -rf output && npx ts-node ./index.ts && (cd output && zip -r ../archive.zip .) && ./import-assistant-local.sh"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "@types/node": "^14.14.21",
+    "fs": "^0.0.1-security",
+    "lodash": "^4.17.20",
+    "node-fetch": "^2.6.1",
+    "path": "^0.12.7"
+  }
 }

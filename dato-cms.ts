@@ -1,6 +1,6 @@
 import * as _ from "lodash";
 import * as fetch from "node-fetch";
-import dato from "./keys.json";
+const config: { [key: string]: any } = require("./keys.json");
 
 // This file reads from the Dato api and converts everything into a voxa-friendly format.
 // The views object that is rendered here also contains many responses that aren't
@@ -14,7 +14,7 @@ export default async function DatoData(query: string) {
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
-        Authorization: `Bearer ${dato}`
+        Authorization: `Bearer ${config.dato}`
       },
       body: JSON.stringify({
         query: `query MyQuery ${query}`
@@ -72,59 +72,45 @@ export const getViews = () =>
     });
   });
 
-export const getGameContent = async () => {
+export const getIntent = async () => {
   const data: any = await DatoData(`{
-    gameConfig {
-      activityOrder
-      daysBetweenIdleMessage
-      expertUserExpiry
-      disableVoiceOvers
-      repromptAudioTrack {
-        url
+    allIntents(first: "100") {
+      intentName
+      event
+      priority
+      entities {
+        id
+        name
       }
+      utterance
     }
-    allActivities(first: "100") {
-      activityName
+    allEntities(first: "100") {
       id
-      textToSpeech
-      isTimedActivity
-      activityType {
-        activityType
-      }
-      audioFile {
-        url
-      }
-      musicTrack {
-          url
+      name
+      value {
+        synonyms
+        key
       }
     }
-    allBadges {
-      badgeName
-      id
-      probability
-      bodyText
-      badgeImage {
-        url
-      }
+    agent {
+      analyzeQueryTextSentiment
+      defaultTimezone
+      description
+      disableInteractionLogs
+      disableStackdriverLogs
+      displayName
+      enableOnePlatformApi
+      examples
+      isPrivate
+      language
+      linkToDocs
+      mlMinConfidence
+      onePlatformApiVersion
+      shortDescription
+      supportedLanguages
+      updatedAt
     }
-    screen {
-      backButton
-      backgroundImage {
-        alt
-        url
-        responsiveImage(imgixParams: {bri: "-30", blur: "70", dpi: "80", auto: compress}) {
-          src
-        }
-      }
-      badgeScreenText
-      primaryText
-      secondaryText
-      tertiaryText
-      titleText
-      screenType {
-        screenType
-      }
-    }
-  }`);
+  }
+  `);
   return data;
 };
