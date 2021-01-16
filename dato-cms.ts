@@ -1,6 +1,6 @@
 import * as _ from "lodash";
 import * as fetch from "node-fetch";
-const config: { [key: string]: any } = require("./keys.json");
+const config: { [key: string]: any } = require("./config.json");
 
 // This file reads from the Dato api and converts everything into a voxa-friendly format.
 // The views object that is rendered here also contains many responses that aren't
