@@ -120,3 +120,4 @@ client_secret.json
 output/
 *.zip
 dialogFlow_key.json
+.DS_Store

@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "import": "rm -rf output && npx ts-node ./index.ts && (cd output && zip -r ../archive.zip .) && ./import-assistant-local.sh"
+    "updateDato": "ts-node ./dato-status.ts",
+    "import": "rm -rf output && npx ts-node ./index.ts && (cd output && zip -r ../archive.zip .) && ./build/import-assistant-local.sh",
+    "restore": "rm -rf output && npx ts-node ./index.ts && (cd output && zip -r ../archive.zip .) && ./build/restore-assistant-local.sh"
   },
   "author": "",
   "license": "ISC",
