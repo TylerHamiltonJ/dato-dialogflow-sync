@@ -1,0 +1,47 @@
+service: american-red-cross
+
+plugins:
+  - serverless-plugin-typescript
+  - serverless-plugin-optimize
+
+custom:
+  config: ${file(src/config/index.js):asFunction}
+
+  optimize:
+    includePaths: ["src/config"]
+
+provider:
+  name: aws
+  runtime: nodejs10.x
+  region: us-east-1
+  stackTags:
+    project: firefighter-challenge
+    developer: VERSA
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - "dynamodb:*"
+      Resource: !GetAtt TableUsers.Arn
+  environment:
+    NODE_ENV: ${opt:stage}
+
+functions:
+  alexa:
+    name: firefighter-challenge-${opt:stage}-alexa
+    timeout: 6
+    handler: src/handler.alexaHandler
+    memorySize: 512
+    events:
+      - alexaSkill: ${env:SKILL_ID}
+
+package:
+  individually: true
+  excludeDevDependencies: true
+  include:
+    - src/config/*.json
+
+  exclude:
+    - scripts/**
+    - assets/**
+    - reports/**
+    - speech-assets/**

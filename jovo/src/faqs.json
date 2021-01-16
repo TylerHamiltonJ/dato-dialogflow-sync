@@ -1,0 +1,6 @@
+[
+  {
+    "intent": "LaunchIntent",
+    "response": "Hello.World.ask"
+  }
+]

@@ -8,6 +8,15 @@ getIntent().then(async res => {
     utterances: createUtterances(intent.utterance),
     intent: createIntent(intent.intentName, intent.entities, intent.priority, intent.event)
   }));
+  const faqs = res.allFaqs.map(m => ({
+    intent: m.intent.intentName,
+    response: m.response.pathname.pathName
+  }));
+  const responses = res.allResponses.map(m => ({
+    [m.pathname.pathName]: m.response.map(n => n.textResponse)
+  }));
+  fs.writeFileSync(`./jovo/src/responses.json`, JSON.stringify(responses, null, 2));
+  fs.writeFileSync(`./jovo/src/faqs.json`, JSON.stringify(faqs, null, 2));
   await [
     fs.mkdirSync("./output"),
     fs.mkdirSync("./output/intents"),
