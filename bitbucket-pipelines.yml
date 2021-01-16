@@ -1,0 +1,16 @@
+pipelines:
+  branches:
+    master:
+      - step:
+          name: Deploy AWS staging
+          image: jch254/docker-node-serverless:latest
+          caches:
+            - node
+          script:
+            - yarn --frozen-lockfile
+            - cp src/config/staging.json src/config/local.json
+            - export NODE_ENV=staging
+            - yarn views
+            - serverless deploy --stage staging
+          after-script:
+            - yarn updateDato

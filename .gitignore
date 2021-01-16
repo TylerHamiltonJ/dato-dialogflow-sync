@@ -118,6 +118,7 @@ dist
 config.json
 client_secret.json
 output/
+input/
 *.zip
 dialogFlow_key.json
 .DS_Store
