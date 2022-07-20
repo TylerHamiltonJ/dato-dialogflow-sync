@@ -6,4 +6,4 @@ Dato Dialogflow Sync is your solution to housing your intents, entities, trainin
 
 ## Installation
 
-This one is a doozy so I'll come back to it.
+In progress
